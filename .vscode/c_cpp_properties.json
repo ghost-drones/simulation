@@ -1,0 +1,38 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/home/lucca/drone_environment/devel/include/**",
+        "/opt/ros/noetic/include/**",
+        "/home/lucca/drone_environment/src/ardupilot_gazebo/include/**",
+        "/home/lucca/drone_environment/src/aruco_ros/aruco/include/**",
+        "/home/lucca/drone_environment/src/aruco_ros/aruco_ros/include/**",
+        "/home/lucca/drone_environment/src/cbr_simulation/include/**",
+        "/home/lucca/drone_environment/src/controladora-esfera/include/**",
+        "/home/lucca/drone_environment/src/darknet_ros/darknet_ros/include/**",
+        "/home/lucca/drone_environment/src/esferas_simulator/include/**",
+        "/home/lucca/drone_environment/src/mavros/libmavconn/include/**",
+        "/home/lucca/drone_environment/src/mav_comm/mav_msgs/include/**",
+        "/home/lucca/drone_environment/src/mav_comm/mav_planning_msgs/include/**",
+        "/home/lucca/drone_environment/src/mavros/mavros/include/**",
+        "/home/lucca/drone_environment/src/mavros/mavros_msgs/include/**",
+        "/home/lucca/drone_environment/src/CrazyS/rotors_control/include/**",
+        "/home/lucca/drone_environment/src/CrazyS/rotors_gazebo/include/**",
+        "/home/lucca/drone_environment/src/CrazyS/rotors_gazebo_plugins/include/**",
+        "/home/lucca/drone_environment/src/CrazyS/rotors_joy_interface/include/**",
+        "/home/lucca/drone_environment/src/mavros/test_mavros/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}

@@ -1,0 +1,10 @@
+<launch>
+  <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
+  <arg name="gui" default="true"/>
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="/root/sim_ws/src/cbr_simulation/worlds/default.world"/>
+    <arg name="gui" value="true"/>
+    <arg name="verbose" value="true"/>
+    <!-- more default parameters can be changed here -->
+  </include>
+</launch>
