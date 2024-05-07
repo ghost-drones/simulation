@@ -17,6 +17,8 @@ RUN apt-get update
 # Create new workspace for aerial manipulator
 RUN mkdir -p $HOME/lead/src
 WORKDIR $HOME/lead/src
+# cbr_simulation
+RUN git clone https://github.com/luccagandra/cbr_simulation.git
 # ardupilot_models
 RUN git clone https://github.com/larics/ardupilot_gazebo.git
 # mav_comm

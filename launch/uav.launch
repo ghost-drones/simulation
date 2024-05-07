@@ -9,7 +9,7 @@
   <arg name="pitch"               default="0"/> 
   <arg name="yaw"                 default="0"/>
   <arg name="enable_ground_truth" default="true"/>
-  <arg name="model"               default="$(find cbr_simulation)/models/cbr_simulation/urdf/cbr_simulation_ropes.urdf.xacro" />
+  <arg name="model"               default="$(find cbr_simulation)/models/cbr_simulation/urdf/cbr_simulation.urdf.xacro" />
   <arg name="world"               default="worlds/empty.world"/>
   <arg name="fdm_port_in"         default="9002"/>
   <arg name="fdm_port_out"        default="9003"/>
@@ -64,15 +64,6 @@
     <arg name="use_sim_time"        value="$(arg use_sim_time)"/>
     <arg name="gui"                 value="$(arg gui)"/>
     <arg name="remap_gazebo_tf"     value="$(arg remap_gazebo_tf)"/>
-
-    <!-- Cable and payload characteristics -->
-    <arg name="cable_length" value="$(arg cable_length)"/>
-    <arg name="cable_radius" value="$(arg cable_radius)"/>
-    <arg name="cable_mass" value="$(arg cable_mass)"/>
-    <arg name="x_payload" value="$(arg x_payload)"/>
-    <arg name="y_payload" value="$(arg y_payload)"/>
-    <arg name="z_payload" value="$(arg z_payload)"/>
-    <arg name="payload_mass" value="$(arg payload_mass)"/>
 
     <!-- Velodyne properties - requires velodyne_simulator -->
     <arg name="enable_velodyne"           value="$(arg enable_velodyne)" />

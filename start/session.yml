@@ -23,7 +23,7 @@ windows:
         - waitForRos; roslaunch cbr_simulation uav.launch
           name:=${UAV_NAMESPACE}
           use_sim_time:=true
-          enable_magnet:=true
+          enable_magnet:=false
           enable_velodyne:=false
           model:=$(rospack find cbr_simulation)/models/${UAV_NAMESPACE}/urdf/${UAV_NAMESPACE}.urdf.xacro
           world:=$(rospack find cbr_simulation)/worlds/${WORLD_NAME}.world
