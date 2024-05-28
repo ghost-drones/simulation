@@ -1,5 +1,7 @@
 # LEAD Docker
 
+## Dependências: [Docker](https://docs.docker.com/engine/install/ubuntu/).
+
 ## 1. Instalação
 
 Arquitetura adaptada do excelente grupo de pesquisa croata: [Larics Lab](https://github.com/larics/uav_ros_simulation). 
