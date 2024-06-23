@@ -1,4 +1,4 @@
-name: Projeto Esferas
+name: CBR
 root: ./
 startup_window: roscore
 pre_window: |

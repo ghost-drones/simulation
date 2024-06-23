@@ -1,5 +1,25 @@
 FROM lmark1/uav_ros_simulation:focal-bin-0.0.1 as uav_base
 
+
+ARG SSH_KEY
+ENV SSH_KEY=$SSH_KEY
+
+# Make ssh dir
+RUN mkdir $HOME/.ssh/
+ 
+# Copy over private key, and set permissions
+
+RUN echo "$SSH_KEY" > $HOME/.ssh/id_rsa
+RUN chmod 600 $HOME/.ssh/id_rsa
+ 
+# Create known_hosts
+RUN touch $HOME/.ssh/known_hosts
+
+# Add bitbuckets key
+RUN ssh-keyscan bitbucket.org >> $HOME/.ssh/known_hosts
+RUN ssh-keyscan github.com >> $HOME/.ssh/known_hosts
+RUN ssh-keyscan gitlab.com >> $HOME/.ssh/known_hosts
+
 ARG CATKIN_WORKSPACE=uav_ws
 ARG DEBIAN_FRONTEND=noninteractive
 ARG HOME=/root
