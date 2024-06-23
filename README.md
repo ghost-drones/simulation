@@ -4,6 +4,8 @@
 
 Arquitetura adaptada do excelente grupo de pesquisa croata: [Larics Lab](https://github.com/larics/uav_ros_simulation). 
 
+Dependência: [Docker](https://docs.docker.com/engine/install/ubuntu/)
+
 ```
 mkdir -p ~/drone_env/src # Criação de uma pasta catkin
 cd ~/drone_env/src/
@@ -54,7 +56,13 @@ Sempre tecle <kbd>Ctrl</kbd> + <kbd>b</kbd> para realizar qualquer ação no TMU
 
 (<kbd>Ctrl</kbd> + <kbd>b</kbd>) + <kbd>1 2 3 4</kbd> : Muda as abas
 
-## Comandos úteis Docker (Fora do docker)
+## 3. Problemas e comandos úteis
+
+
+### Fechar docker:
+```
+docker stop lead_drone_latest
+```
 
 ### Problema de autorização "X11 Xauthority": 
 
@@ -63,12 +71,28 @@ cd ~/drone_env/src/cbr_simulation
 . restart_container.bash
 ```
 
-### Fechar docker:
+### Docker: permission denied
+
+Solução rápida:
 ```
-docker stop lead_drone_latest
+sudo docker <comando>
 ```
 
-# TO-DO
+Solução permanente:
+```
+sudo groupadd docker
 
-- Inserir mais dependências no dockerfile
-- Resolver problema de xauth-docker
+sudo usermod -aG docker $USER
+
+newgrp docker
+```
+
+Se o problema persistir:
+```
+sudo chmod 666 /var/run/docker.sock
+
+sudo systemctl restart docker
+
+sudo reboot
+```
+
