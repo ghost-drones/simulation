@@ -1,0 +1,22 @@
+name: GHOST 👻
+root: ./
+startup_window: roscore
+pre_window: |
+  export UAV_NAME=halfinho;
+  export WORLD_NAME=arena;
+windows:
+  - roscore:
+      layout:
+      panes:
+        - roslaunch gazebo_ghost_sim simulation_px4.launch
+          vehicle:=${UAV_NAME}
+          world_name:=${WORLD_NAME}
+        - |
+          sleep 10; cd /root/lead/src/simulation/scripts && python3 get_motor_speed.py
+  - user:
+      layout: tiled
+      panes:
+        - |
+          rosrun plotjuggler plotjuggler
+        - |
+          cd /root/lead/src/simulation/scripts

@@ -4,12 +4,12 @@
   <arg name="tf_prefix"           default="$(arg name)"/>
   <arg name="x"                   default="0.0"/>
   <arg name="y"                   default="0.0"/>
-  <arg name="z"                   default="0.5"/>
+  <arg name="z"                   default="1.5"/>
   <arg name="roll"                default="0"/>
   <arg name="pitch"               default="0"/> 
   <arg name="yaw"                 default="0"/>
   <arg name="enable_ground_truth" default="true"/>
-  <arg name="model"               default="$(find cbr_simulation)/models/cbr_simulation/urdf/cbr_simulation.urdf.xacro" />
+  <arg name="model"               default="$(find gazebo_ghost_sim)/models/gazebo_ghost_sim/urdf/gazebo_ghost_sim.urdf.xacro" />
   <arg name="world"               default="worlds/empty.world"/>
   <arg name="fdm_port_in"         default="9002"/>
   <arg name="fdm_port_out"        default="9003"/>
@@ -37,17 +37,15 @@
   <arg name="enable_simple_manipulator" default="false" />
 
   <!-- Spawn the world -->
-  <include file="$(find ardupilot_gazebo)/launch/empty_world.launch">
+  <include file="$(find gazebo_ghost_sim)/launch/world.launch">
     <arg name="paused"          value="false" />
     <arg name="use_sim_time"    value="$(arg use_sim_time)"/>
     <arg name="verbose"         value="true" />
     <arg name="world_name"      value="$(arg world)" />
     <arg name="gui"             value="$(arg gui)"/>
-    <arg name="remap_gazebo_tf" value="$(arg remap_gazebo_tf)"/>
-    <arg name="debug"           value="false" />
   </include>
 
-  <include file="$(find cbr_simulation)/launch/spawn_mav.launch">
+  <include file="$(find gazebo_ghost_sim)/launch/spawn_mav.launch">
     <arg name="name"                value="$(arg name)"/>
     <arg name="tf_prefix"           value="$(arg tf_prefix)"/>
     <arg name="x"                   value="$(arg x)"/>

@@ -1,0 +1,372 @@
+<sdf version='1.7'>
+  <world name='cyberzoo'>
+    <!--<physics type='ode'>
+      <max_step_size>0.001</max_step_size>
+      <real_time_update_rate>0</real_time_update_rate>
+      <real_time_factor>1</real_time_factor>
+    </physics>-->
+    <physics type='ode'>
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+    </physics>
+    <scene>
+      <ambient>0.9 0.9 0.9 1</ambient>
+      <background>0.7 0.7 0.7 1</background>
+      <origin_visual>0</origin_visual>
+      <shadows>0</shadows>
+    </scene>
+    <spherical_coordinates>
+      <surface_model>EARTH_WGS84</surface_model>
+      <latitude_deg>51.9906</latitude_deg>
+      <longitude_deg>4.37679</longitude_deg>
+      <elevation>45.11</elevation>
+      <heading_deg>180</heading_deg>
+    </spherical_coordinates>
+    <model name='cyberzoo_model'>
+      <static>1</static>
+      <pose>0 4 0 0 -0 0</pose>
+      <link name='cyberzoo_link'>
+        <visual name='floor'>
+          <pose>-5 -5 0.01 0 -0 0</pose>
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <mesh>
+              <uri>model://cyberzoo/cyberzoo_floor.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <collision name='floor_collision'>
+          <pose>0 0 0 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>10 10 0.02</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='poles'>
+          <pose>-5 -5 0 0 -0 0</pose>
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <mesh>
+              <uri>model://cyberzoo/cyberzoo_poles.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://cyberzoo/cyberzoo_poles</uri>
+              <name>Cyberzoo/Poles</name>
+            </script>
+          </material>
+          <meta>
+            <layer>0</layer>
+          </meta>
+        </visual>
+        <visual name='wires'>
+          <pose>-5 -5 0 0 -0 0</pose>
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <mesh>
+              <uri>model://cyberzoo/cyberzoo_wires.dae</uri>
+            </mesh>
+          </geometry>
+          <meta>
+            <layer>0</layer>
+          </meta>
+        </visual>
+        <visual name='cams'>
+          <pose>-5 -5 0 0 -0 0</pose>
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <mesh>
+              <uri>model://cyberzoo/cyberzoo_cams.dae</uri>
+            </mesh>
+          </geometry>
+          <meta>
+            <layer>0</layer>
+          </meta>
+        </visual>
+        <visual name='lighting'>
+          <pose>-5 -5 0 0 -0 0</pose>
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <mesh>
+              <uri>model://cyberzoo/cyberzoo_lighting.dae</uri>
+            </mesh>
+          </geometry>
+          <meta>
+            <layer>0</layer>
+          </meta>
+        </visual>
+        <visual name='glow'>
+          <pose>-5 -5 0 0 -0 0</pose>
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <mesh>
+              <uri>model://cyberzoo/cyberzoo_lighting_glow.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://cyberzoo/cyberzoo_lighting_glow</uri>
+              <name>Cyberzoo/Glow</name>
+            </script>
+          </material>
+          <meta>
+            <layer>0</layer>
+          </meta>
+        </visual>
+        <visual name='walls'>
+          <pose>-5 -5 0 0 -0 0</pose>
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <mesh>
+              <uri>model://cyberzoo/cyberzoo_walls.dae</uri>
+            </mesh>
+          </geometry>
+          <meta>
+            <layer>1</layer>
+          </meta>
+        </visual>
+        <visual name='net'>
+          <pose>-5 -5 0 0 -0 0</pose>
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <mesh>
+              <uri>model://cyberzoo/cyberzoo_net.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://cyberzoo/cyberzoo_net</uri>
+              <name>Cyberzoo/Net</name>
+            </script>
+          </material>
+          <meta>
+            <layer>1</layer>
+          </meta>
+        </visual>
+        <visual name='surroundings'>
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <mesh>
+              <uri>model://cyberzoo/cyberzoo_surroundings.dae</uri>
+            </mesh>
+          </geometry>
+          <meta>
+            <layer>2</layer>
+          </meta>
+        </visual>
+        <visual name='toolcart'>
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <mesh>
+              <uri>model://cyberzoo/cyberzoo_toolcart.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://cyberzoo/cyberzoo_toolcart</uri>
+              <name>Cyberzoo/Toolcart</name>
+            </script>
+          </material>
+          <meta>
+            <layer>2</layer>
+          </meta>
+        </visual>
+        <visual name='outer_walls'>
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <mesh>
+              <uri>model://cyberzoo/cyberzoo_outer_walls.dae</uri>
+            </mesh>
+          </geometry>
+          <meta>
+            <layer>3</layer>
+          </meta>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <gravity>0 0 -9.8</gravity>
+    <magnetic_field>6e-06 2.3e-05 -4.2e-05</magnetic_field>
+    <atmosphere type='adiabatic'/>
+    <wind/>
+    <state world_name='cyberzoo'>
+      <sim_time>13519 436000000</sim_time>
+      <real_time>170 888520974</real_time>
+      <wall_time>1727838179 376684204</wall_time>
+      <iterations>2865198</iterations>
+      <model name='cyberzoo_model'>
+        <pose>0 0 0 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='cyberzoo_link'>
+          <pose>0 0 0 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='textured panel'>
+        <pose>-7.53332 -5.70937 -0 0 -0 1.57547</pose>
+        <scale>1 1 1</scale>
+        <link name='textured panel'>
+          <pose>-7.53332 -5.70937 -0 0 -0 1.57547</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='textured panel_0'>
+        <pose>-5.45277 3.41521 0 0 -0 1.57979</pose>
+        <scale>1 1 1</scale>
+        <link name='textured panel'>
+          <pose>-5.45277 3.41521 0 0 -0 1.57979</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='textured panel_1'>
+        <pose>4.53613 -7.43017 0 0 0 -3.12227</pose>
+        <scale>1 1 1</scale>
+        <link name='textured panel'>
+          <pose>4.53613 -7.43017 0 0 0 -3.12227</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+    </state>
+    <gui fullscreen='0'>
+      <camera name='user_camera'>
+        <pose>5.68501 -2.0382 2.01778 0 0.199642 2.83936</pose>
+        <view_controller>orbit</view_controller>
+        <projection_type>perspective</projection_type>
+      </camera>
+    </gui>
+    <model name='textured panel'>
+      <static>1</static>
+      <pose>-1.36495 0.659855 0 0 -0 0</pose>
+      <link name='textured panel'>
+        <visual name='panel'>
+          <geometry>
+            <mesh>
+              <uri>model://banner_aerial/textured_panel_1_5m.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <collision name='panel_collision'>
+          <geometry>
+            <mesh>
+              <uri>model://banner_aerial/textured_panel_1_5m.dae</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='textured panel_0'>
+      <static>1</static>
+      <pose>-5.36063 4.05255 0 0 -0 0</pose>
+      <link name='textured panel'>
+        <visual name='panel'>
+          <geometry>
+            <mesh>
+              <uri>model://banner_apoio/textured_panel_1_5m.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <collision name='panel_collision'>
+          <geometry>
+            <mesh>
+              <uri>model://banner_apoio/textured_panel_1_5m.dae</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='textured panel_1'>
+      <static>1</static>
+      <pose>4.18141 -6.93715 0 0 -0 0</pose>
+      <link name='textured panel'>
+        <visual name='panel'>
+          <geometry>
+            <mesh>
+              <uri>model://banner_ghost/textured_panel_1_5m.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <collision name='panel_collision'>
+          <geometry>
+            <mesh>
+              <uri>model://banner_ghost/textured_panel_1_5m.dae</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+  </world>
+</sdf>

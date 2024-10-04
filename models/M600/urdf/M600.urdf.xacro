@@ -52,7 +52,7 @@
 
   <!-- Setup regular quadrotor -->
   <xacro:unless value="${enable_tilt_rotors}">
-    <xacro:include filename="$(find ardupilot_gazebo)/models/M600/urdf/M600_base.urdf.xacro" />
+    <xacro:include filename="$(find gazebo_ghost_sim)/models/M600/urdf/M600_base.urdf.xacro" />
   </xacro:unless>
 
   <xacro:include filename="$(find rotors_description)/urdf/component_snippets.xacro" />
@@ -61,6 +61,7 @@
     NOTE: thrust_multiplier 
       Value is tuned in order for mavros/setpoint_raw/attitude/thrust to reflect real-world behavior. 
   -->
+  <!--
   <xacro:ardupilot
     imu_topic="/${namespace}/imu"
     control_topic="/${namespace}/gazebo/command/motor_speed"
@@ -73,7 +74,7 @@
     fdm_port_in="${fdm_port_in}"
     fdm_port_out="${fdm_port_out}">
   </xacro:ardupilot>
-
+  -->
   <xacro:if value="${enable_magnet}">
     <xacro:magnet_plugin 
       parent="${namespace}/base_link_inertia" 
@@ -155,6 +156,8 @@
   </xacro:odometry_plugin_macro>
 
   <!-- Choose one of the following (and comment out the other): fixed RGBD camera or gimbal with RGBD camera. -->	
+
+  <!--
   <xacro:unless value="${enable_gimbal}">
     <xacro:cam
       namespace="$(arg namespace)"
@@ -173,5 +176,5 @@
       <xacro:insert_block name="front_facing_camera"/>    
     </xacro:gimbal_macro>
   </xacro:if>
-
+  -->
 </robot>

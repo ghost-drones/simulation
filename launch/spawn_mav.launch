@@ -1,6 +1,6 @@
 <launch>
 
-  <arg name="name"                default="kopterworx"/>
+  <arg name="name"                default="halfinho"/>
   <arg name="tf_prefix"           default="$(arg name)"/>
   <arg name="x"                   default="0.0"/>
   <arg name="y"                   default="0.0"/>
@@ -9,7 +9,7 @@
   <arg name="pitch"               default="0"/>
   <arg name="yaw"                 default="0"/>
   <arg name="enable_ground_truth" default="true"/>
-  <arg name="model"               default="$(find ardupilot_gazebo)/models/kopterworx/urdf/kopterworx.urdf.xacro" />
+  <arg name="model"               default="$(find gazebo_ghost_sim)/models/halfinho/urdf/halfinho.urdf.xacro" />
   <arg name="world"               default="worlds/empty.world"/>
   <arg name="fdm_port_in"         default="9002"/>
   <arg name="fdm_port_out"        default="9003"/>

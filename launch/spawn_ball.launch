@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+
+<launch>
+  <arg name="name" default="ball"/>
+  <arg name="x" default="0.0"/>
+  <arg name="y" default="0.0"/>
+  <arg name="z" default="0.5"/>
+  <arg name="ball_mass" default="0.3"/>
+  <arg name="ball_radius" default="0.3"/>
+  <arg name="enable_logging" default="false"/>
+  <arg name="enable_ground_truth" default="true"/>
+  <arg name="log_file" default="mmuav_log"/>
+  <arg name="exclude_floor_link_from_collision_check" default="ground_plane::link"/>
+  <arg name="model" value="$(find esferas_simulator)/models/ball/ball_mod.urdf.gazebo" />
+
+  <!-- send the robot XML to param server -->
+  <param name="/$(arg name)/robot_description" command="
+    $(find xacro)/xacro --inorder '$(arg model)'
+    enable_logging:=$(arg enable_logging)
+    enable_ground_truth:=$(arg enable_ground_truth)
+    exclude_floor_link_from_collision_check:=$(arg exclude_floor_link_from_collision_check)
+    log_file:=$(arg log_file)
+    name:=$(arg name)
+    ball_name:=$(arg name)
+    m:=$(arg ball_mass)
+    r:=$(arg ball_radius)"
+  />
+
+	<node name="robot_state_publisher" pkg="robot_state_publisher"
+    type="robot_state_publisher" ns="$(arg name)"/>
+
+  <!-- push robot_description to factory and spawn robot in gazebo -->
+  <node name="spawn_robot" pkg="gazebo_ros" type="spawn_model"
+   args="-param /$(arg name)/robot_description
+         -urdf
+         -x $(arg x)
+         -y $(arg y)
+         -z $(arg z)
+         -R 0
+         -P 0
+         -Y 0
+         -model $(arg name)"
+   respawn="false" output="screen" >
+  </node>
+
+  <!-- Load joint controller configurations from YAML file to parameter server -->
+  <rosparam file="$(find esferas_simulator)/config/simulation_params/esfera_control.yaml" command="load"/>
+
+  <!-- load the controllers -->
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" ns="$(arg name)" args="joint1_position_controller joint_state_controller">
+
+    <remap from="/robot_description" to="$(arg name)/robot_description"/>
+  </node>
+
+</launch>

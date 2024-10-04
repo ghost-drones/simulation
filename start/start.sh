@@ -2,4 +2,5 @@
 
 # start tmuxinator
 #tmuxinator
-tmuxinator start -p session.yml arena=$1
+tmuxinator start -p session_px4.yml arena=$1
+

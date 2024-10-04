@@ -1,56 +1,69 @@
-FROM lmark1/uav_ros_simulation:focal-bin-0.0.1 as uav_base
+#
+# PX4 ROS development environment
+#
 
+FROM px4io/px4-dev-simulation-focal:latest
+LABEL maintainer="Nuno Marques <n.marques21@hotmail.com>"
 
-ARG SSH_KEY
-ENV SSH_KEY=$SSH_KEY
-
-# Make ssh dir
-RUN mkdir $HOME/.ssh/
- 
-# Copy over private key, and set permissions
-
-RUN echo "$SSH_KEY" > $HOME/.ssh/id_rsa
-RUN chmod 600 $HOME/.ssh/id_rsa
- 
-# Create known_hosts
-RUN touch $HOME/.ssh/known_hosts
-
-# Add bitbuckets key
-RUN ssh-keyscan bitbucket.org >> $HOME/.ssh/known_hosts
-RUN ssh-keyscan github.com >> $HOME/.ssh/known_hosts
-RUN ssh-keyscan gitlab.com >> $HOME/.ssh/known_hosts
-
-ARG CATKIN_WORKSPACE=uav_ws
-ARG DEBIAN_FRONTEND=noninteractive
+ENV ROS_DISTRO noetic
 ARG HOME=/root
-ARG ROS_DISTRO=noetic
 
-ENV NVIDIA_VISIBLE_DEVICES all
-ENV NVIDIA_DRIVER_CAPABILITIES graphics,utility,compute
+# setup ros keys
+RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add -
 
-# Install apt packages
-RUN apt-get install -y \
-    nano 
+RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu `lsb_release -sc` main" > /etc/apt/sources.list.d/ros-latest.list' \
+	&& sh -c 'echo "deb http://packages.ros.org/ros/ubuntu `lsb_release -sc` main" > /etc/apt/sources.list.d/ros-latest.list' \
+	&& sh -c 'echo "deb http://packages.ros.org/ros-shadow-fixed/ubuntu `lsb_release -sc` main" > /etc/apt/sources.list.d/ros-shadow.list' \
+	&& apt-get update \
+	&& apt-get -y --quiet --no-install-recommends install \
+		geographiclib-tools \
+		libeigen3-dev \
+		libgeographic-dev \
+		libopencv-dev \
+		libyaml-cpp-dev \
+		python3-rosdep \
+		python3-catkin-tools \
+		python3-catkin-lint \
+		ros-$ROS_DISTRO-gazebo-ros-pkgs \
+		ros-$ROS_DISTRO-mavlink \
+		ros-$ROS_DISTRO-mavros \
+		ros-$ROS_DISTRO-mavros-extras \
+		ros-$ROS_DISTRO-octomap \
+		ros-$ROS_DISTRO-octomap-msgs \
+		ros-$ROS_DISTRO-pcl-conversions \
+		ros-$ROS_DISTRO-pcl-msgs \
+		ros-$ROS_DISTRO-pcl-ros \
+		ros-$ROS_DISTRO-ros-base \
+		ros-$ROS_DISTRO-rostest \
+		ros-$ROS_DISTRO-rosunit \
+		xvfb \
+	&& geographiclib-get-geoids egm96-5 \
+	&& apt-get -y autoremove \
+	&& apt-get clean autoclean \
+	&& rm -rf /var/lib/apt/lists/{apt,dpkg,cache,log} /tmp/* /var/tmp/*
 
-RUN apt-get update
+# Clone the px4tools repository and install Python packages
+RUN git clone https://github.com/dronecrew/px4tools.git /tmp/px4tools && \
+    pip3 install -U \
+		jupyter \
+    	/tmp/px4tools \
+    	pymavlink \
+    	osrf-pycommon && \
+    rm -rf /tmp/px4tools
+
+# bootstrap rosdep
+RUN rosdep init && rosdep update
 
 # Create new workspace for aerial manipulator
 RUN mkdir -p $HOME/lead/src
+
+WORKDIR $HOME
+
+#RUN git clone https://github.com/PX4/PX4-Autopilot.git
+
 WORKDIR $HOME/lead/src
-# cbr_simulation
-RUN git clone https://github.com/luccagandra/cbr_simulation.git
-# ardupilot_models
-RUN git clone https://github.com/larics/ardupilot_gazebo.git
-# mav_comm
-RUN git clone https://github.com/larics/mav_comm.git -b larics_master
-# rotors simulator
-RUN git clone https://github.com/larics/rotors_simulator.git -b larics_noetic_master
+# simulation
+RUN git clone https://github.com/ghost-drones/simulation.git
+
 WORKDIR $HOME/lead/
 RUN bash -c "source /opt/ros/noetic/setup.bash; source ~/.bashrc;  catkin build" 
-
-# Add localhost for it 
-RUN echo "export ROS_MASTER_URI=http://127.0.0.1:11311" >> ~/.bashrc
-RUN echo "export ROS_HOSTNAME=127.0.0.1" >> ~/.bashrc
-RUN echo "source /root/lead/devel/setup.bash" >> ~/.bashrc 
-
-CMD ["bash"]
